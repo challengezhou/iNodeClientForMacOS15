@@ -1,0 +1,32 @@
+#!/bin/bash
+INODE_CFG="/etc/iNode/inodesys.conf"
+[ -r "$INODE_CFG" ] && . "${INODE_CFG}"
+if [ -z "$INSTALL_DIR" ]; then
+    echo INSTALL_DIR=/Applications/iNodeClient >> /etc/iNode/inodesys.conf
+fi
+
+sudo chown -R root:admin /Applications/iNodeClient
+sudo chown -R root:wheel /etc/iNode
+sudo chown -R root:wheel /Library/StartupItems/iNodeAuthService
+sudo chown -R root:wheel /usr/local/lib
+sudo chown root:wheel /Library/LaunchDaemons/com.apple.iNodeClient.plist
+sudo chmod -R 755 /Applications/iNodeClient
+sudo chmod 775 /Applications/iNodeClient
+sudo chmod 644 /Library/StartupItems/iNodeAuthService/StartupParameters.plist
+sudo chmod 755 /Library/StartupItems/iNodeAuthService/iNodeAuthService
+sudo chmod -R 777 /Applications/iNodeClient/log
+sudo chmod -R 777 /Applications/iNodeClient/conf
+sudo chmod -R 777 /Applications/iNodeClient/clientfiles
+sudo chmod -R 777 /Applications/iNodeClient/clientfiles/8021
+sudo chmod -R 777 /Applications/iNodeClient/clientfiles/5020
+sudo chmod -R 777 /Applications/iNodeClient/clientfiles/7000
+sudo mv -f /Applications/iNodeClient/clientfiles/*.icnf /Applications/iNodeClient/clientfiles/8021/
+CUSDIR=$(dirname "$0")
+CUSDIR=$(dirname "$CUSDIR")
+sudo cp -rf "${CUSDIR}"/iNodeCustom.xml /Applications/iNodeClient/custom/
+sudo cp -rf "${CUSDIR}"/iNodeCustomXml.vrf /Applications/iNodeClient/custom/
+sudo cp -rf "${CUSDIR}"/DeskIconMacOS.icns /Applications/iNodeClient/iNodeClient.app/Contents/Resources/wxmac.icns
+sudo cp -rf "${CUSDIR}"/DeskIconMacOS.icns /Applications/iNodeClient/custom/
+sudo cp -rf "${CUSDIR}"/MainIcon.ico /Applications/iNodeClient/custom/
+sudo launchctl load /Library/LaunchDaemons/com.apple.iNodeClient.plist
+exit 0

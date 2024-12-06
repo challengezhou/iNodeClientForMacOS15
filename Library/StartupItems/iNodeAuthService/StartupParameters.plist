@@ -1,0 +1,5 @@
+{
+  Description     = "iNodeAuthService";
+  Provides        = ("H3C");
+  Uses            = ("System Tuning");
+}

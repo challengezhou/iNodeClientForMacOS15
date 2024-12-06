@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<msg>
+    <content>
+        <common>
+            <procomVal>19</procomVal>
+            <funcomVal>1</funcomVal>
+            <cusTimeStamp>1482907338</cusTimeStamp>
+            <cusTimeString>2016-12-28 14:42:18</cusTimeString>
+            <cusAddInfo></cusAddInfo>
+        </common>
+        <functions>
+            <acl>0</acl>
+            <wanControl>0</wanControl>
+            <drvErr>0</drvErr>
+            <dynamicPwdVerify>0</dynamicPwdVerify>
+            <dynamicVifInfo>0</dynamicVifInfo>
+            <msgAuthOpt>1</msgAuthOpt>
+            <msgAuthInfo>1</msgAuthInfo>
+            <msgAuthServIP>1.1.1.1</msgAuthServIP>
+            <msgAuthServPort>9025</msgAuthServPort>
+        </functions>
+        <x1>
+            <upVer>1</upVer>
+            <upIp>1</upIp>
+            <unicastType>1</unicastType>
+            <refreshIPAftCut>0</refreshIPAftCut>
+            <broadLogOff>1</broadLogOff>
+            <x1ResumeConn>1</x1ResumeConn>
+            <reauthTimes>0</reauthTimes>
+            <reauthInterval>0</reauthInterval>
+            <keepConnPasswd>1</keepConnPasswd>
+            <autoAuth>0</autoAuth>
+        </x1>
+        <portal>
+            <resumeConn>1</resumeConn>
+            <upVer>1</upVer>
+            <autoAuth>0</autoAuth>
+            <keepConnPasswd>1</keepConnPasswd>
+        </portal>
+        <sslvpn>
+            <remote/>
+            <defaultAddress>0</defaultAddress>
+            <retryInterval>5</retryInterval>
+            <retries>3</retries>
+            <authMode>7</authMode>
+            <authDefaultMode>0</authDefaultMode>
+            <ulAuthType>15</ulAuthType>
+            <authType>Local;AD;LDAP;RADIUS</authType>
+            <authDefaultType>RADIUS</authDefaultType>
+            <gatewayAuth>0</gatewayAuth>
+            <getSmsVryCountdownValue>60</getSmsVryCountdownValue>
+        </sslvpn>
+    </content>
+</msg>

@@ -1,0 +1,77 @@
+#!/bin/bash
+IfExistAuth=`ps -Ac -o command|grep -x AuthenMngService`
+IfExistMon=`ps -Ac -o command|grep -x iNodeMon`
+LIB_TARGET_DIR="/usr/local/lib"
+if [ "$IfExistAuth" != "" -o "$IfExistMon" != "" ]
+then
+    sudo launchctl unload /Library/LaunchDaemons/com.apple.iNodeClient.plist
+    sudo sh /Applications/iNodeClient/StopService.sh
+    sudo rm -f /Library/LaunchDaemons/com.apple.iNodeClient.plist 
+fi
+
+Sec=0
+while [ 1 ]
+do
+    IfExistMon=`ps -Ac -o command|grep -x iNodeMon`
+    if [ "$IfExistMon" != "" ]
+    then
+        sleep 1
+        Sec=`expr $Sec + 1`
+
+        if [ "$Sec" -gt 10 ]
+	then
+            sudo killall -9 iNodeMon
+        fi
+    else
+        break
+    fi
+done
+
+Sec=0
+while [ 1 ]
+do
+    IfExistAuth=`ps -Ac -o command|grep -x AuthenMngService`
+    if [ "$IfExistAuth" != "" ]
+    then
+        sleep 1
+        Sec=`expr $Sec + 1`
+
+        if [ "$Sec" -gt 10 ]
+	then
+            sudo killall -9 AuthenMngService
+        fi
+    else
+        break
+    fi
+done
+    
+IfExistUI=`ps -Ac -o command|grep -x iNodeClient`
+if [ "$IfExistUI" != "" ]
+then
+    sleep 5
+    sudo killall -9 iNodeClient
+fi
+echo "当前安装位置"
+echo $PWD
+echo "文件列表"
+ls
+# 1. 移动
+mkdir /etc/iNode
+
+# 2. 移动依赖文件
+echo "/usr/local/lib目录检查"
+# 检查目录是否存在
+if [ -d "$LIB_TARGET_DIR" ]; then
+  echo "Directory $LIB_TARGET_DIR already exists."
+else
+  echo "Directory $LIB_TARGET_DIR does not exist. Creating it..."
+  # 创建目录并设置权限
+  sudo mkdir -p "$LIB_TARGET_DIR"
+  sudo chmod 755 "$LIB_TARGET_DIR"
+  echo "Directory $LIB_TARGET_DIR created and permissions set to 755."
+fi
+echo "移动依赖文件"
+sudo cp -r ./lib/* /usr/local/lib/
+echo "移动依赖文件完成✅"
+
+exit 0
